@@ -117,6 +117,54 @@
   .alternative-section a{
     margin-left: 5px;
   }
+
+  /* Input group styling remains the same */
+.input-group {
+  margin-bottom: 1.2rem;
+}
+
+/* Radio button group container */
+.radio-group {
+  display: flex;
+  gap: 1.5rem; /* Adjust the spacing between the radio options */
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+/* Style for each radio option */
+.radio-option {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  /* color: #555; */
+}
+
+/* Styling for the radio buttons */
+.radio-option input[type="radio"] {
+  margin-right: 0.5rem;
+  accent-color: #ff6b6b; /* Customize radio button color */
+  
+  width: 16px;
+  height: 16px;
+  outline: none;
+ 
+}
+
+/* Add focus effect for accessibility */
+.radio-option input[type="radio"]:focus {
+  outline: 2px solid #ff9a8b;
+  outline-offset: 2px;
+  
+}
+
+/* Label for the radio group */
+.radio-label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  display: block;
+  /* color: #333; */
+}
+
   
   /* Add responsiveness */
   @media (max-width: 768px) {
