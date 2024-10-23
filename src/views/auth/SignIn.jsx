@@ -25,28 +25,28 @@ function SignIn() {
         <form className="signin-form" onSubmit={handleSubmit}>
           <h2>Sign In</h2>
           <div className="input-group">
-            <label htmlFor="email">Email</label>
+            {/* <label htmlFor="email">Email</label> */}
             <input
               type="email"
               id="email"
-              placeholder="Enter your email"
+              placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
           <div className="input-group">
-            <label htmlFor="password">Password</label>
+            {/* <label htmlFor="password">Password</label> */}
             <input
               type="password"
               id="password"
-              placeholder="Enter your password"
+              placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
-          <button type="submit" className="submit-btn">Sign In</button>
+          <button type="submit" className="submit-btn"> Continue </button>
           <div className='alternative-section'>
           Don't have an account? 
              <Link to={'/sign-up'}> sign up </Link>
