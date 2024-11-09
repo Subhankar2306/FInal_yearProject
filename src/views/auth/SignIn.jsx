@@ -1,16 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import signUpImage from '../../assets/sign-in.webp'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser } from '../../store/user/userController';
+import { toast } from 'react-toastify';
 
 function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate()
+
+  const dispatch = useDispatch()
+  const { user , loading , message , status } = useSelector((state)=> state.user)
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Email:', email);
-    console.log('Password:', password);
+    
+    if(email && password){
+      dispatch(loginUser({email , password}))
+    }  
+
   };
+  
+  useEffect(()=>{
+    if(status.loginUser === 'success'){
+        toast.success(message)
+        navigate('/')
+    } else if(status.loginUser === 'rejected'){
+        toast.error(message)
+    }
+
+  }, [status])
+
 
   return (
     <div className='signin-main'>
@@ -46,7 +67,7 @@ function SignIn() {
               required
             />
           </div>
-          <button type="submit" className="submit-btn"> Continue </button>
+          <button type="submit" className="submit-btn"> {loading.loginUserLoading? 'loading...':'continue' } </button>
           <div className='alternative-section'>
           Don't have an account? 
              <Link to={'/sign-up'}> sign up </Link>

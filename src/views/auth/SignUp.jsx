@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import signUpImage from "../../assets/sign-in.webp";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { regUser } from "../../store/user/userController";
+import { toast } from "react-toastify";
+import EmailVerify from "./components/EmailVerify";
 
 function SignUp() {
   const [name, setName] = useState("");
@@ -8,15 +12,42 @@ function SignUp() {
   const [confirmPass, setConfirmPass] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate()
+  const [ isVerify , setIsVerify ] = useState(false)
+
+  const dispatch = useDispatch()
+  const {  loading , user, isAuthenticate , status , error , message } = useSelector((state)=> state.user)
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Email:", email);
-    console.log("Password:", password);
-    console.log("confirm pass:", confirmPass);
-    console.log("name:", name);
-    console.log("role", role);
+
+
+    dispatch(regUser({name , role , email , password}))
+
   };
+
+  useEffect(()=>{
+     if(message ){
+      if(status.regUser === 'success'){
+        toast.success(message)
+      } else if(status.regUser === 'rejected'){
+        toast.error(message)
+      }
+     }
+  }, [message , status])
+
+
+  useEffect(()=>{
+    if (Object.keys(user).length > 0 && !user.isVerify) {
+      setIsVerify(true);
+    }
+      return()=>{
+        setIsVerify(false)
+      }
+  } , [user])
+
+  console.log('log is verify' , isVerify , user);
+  
 
   return (
     <div className="signin-main">
@@ -27,11 +58,14 @@ function SignUp() {
         </div>
         {/* Right side form section */}
         <div className="signin-form-container">
-          <form className="signin-form" onSubmit={handleSubmit}>
-            <h2>Sign Up</h2>
 
-            <div className="input-group">
-              {/* <label htmlFor="name">Full Name</label> */}
+        {
+          !isVerify ?(
+
+            <form className="signin-form flex flex-col gap-3" onSubmit={handleSubmit}>
+            <h2 className="text-2xl text-gray-600">Sign Up</h2>
+
+           
               <input
                 type="text"
                 id="name"
@@ -39,11 +73,9 @@ function SignUp() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
+                className="custom-input"
               />
-            </div>
-
-            <div className="input-group">
-              {/* <label htmlFor="email">Email</label> */}
+           
               <input
                 type="email"
                 id="email"
@@ -51,9 +83,9 @@ function SignUp() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                className="custom-input"
               />
-            </div>
-
+           
             <div className="input-group">
               <label htmlFor="role" className="radio-label">
                 {" "}
@@ -83,8 +115,7 @@ function SignUp() {
               </div>
             </div>
 
-            <div className="input-group">
-              {/* <label htmlFor="password">Password</label> */}
+      
               <input
                 type="password"
                 id="password"
@@ -92,11 +123,9 @@ function SignUp() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                className="custom-input"
               />
-            </div>
-
-            <div className="input-group">
-              {/* <label htmlFor="confirm-password">Confirm Password</label> */}
+       
               <input
                 type="password"
                 id="confirm-password"
@@ -104,18 +133,29 @@ function SignUp() {
                 value={confirmPass}
                 onChange={(e) => setConfirmPass(e.target.value)}
                 required
+                className="custom-input"
               />
-            </div>
+         
 
             <button type="submit" className="submit-btn">
-              Submit
+            { loading.regUserLoading ? 'loading ... ': 'Submit' }
             </button>
 
             <div className="alternative-section">
               Already have an account?
-              <Link to={"/sign-in"}>sign in</Link>
+              <Link to={"/sign-in"}>Sign In</Link>
             </div>
           </form>
+          ) : 
+          (
+            <EmailVerify email={user?.email}/>
+          )
+        }
+
+          
+
+
+
         </div>
       </div>
     </div>
