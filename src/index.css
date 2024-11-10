@@ -1,9 +1,76 @@
-@import './styles/style.css';
-@import './styles/signin.css';
-@import './styles/header.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
 
 *{
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    /* font-family:monospace; */
+   
+}
+*::selection{
+    background: #ff6b6b;
+    color: var(--white);
+}
+ p{
+     font-size: 16px;
+     font-weight: 500;
+ }
+
+ .input-field {
+    width: 100%; 
+    padding: 0.5rem 1rem; 
+    margin-top: 0.5rem; 
+    border: 1px solid #abb1b8; 
+    border-radius: 0.5rem; 
+    outline: none; 
+  }
+  
+  .input-field:focus {
+    border-color: #d53f8c; 
+  }
+
+
+  .custom-button {
+    width: 100%;
+    padding: 0.75rem 0;
+    margin-top: 1.5rem;
+    background: linear-gradient(to right, #f472b6, #a855f7);
+    color: #ffffff;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .custom-button:hover {
+    background: linear-gradient(to right, #ef611f87, #8b5cf6);
+  }
+  
+  
+
+:root{
+    --orenge:orange;
+    --white:#FFFFFF; 
+    --black:#000000;
+    --lightGray:#D1D5DB;
+    --lightGray2:#F3F4F6;
+    --darkRed:#7C2D12;
+    --lightRed:#DC2626;
+    --lightPink:#FFF5F5;
+    --lightOrenge:#FFEDD5;
+    --lightOrenge2:rgba(237, 179, 71, 0.212);
+    --darkGray:#D1D5DB;
+    --darkGray2:rgba(128, 128, 128, 0.959);
+    --linearColor:linear-gradient(70deg,#D4FC79,#96E6A1) ;
+    --darkGreen:#166534;
+    --lightGreen:#16A34A;
+    --lightGreen2:#60f96049;
+    --violate:#634C9F;
+    --darkBackgroung:#1E1E1E;
+    
 }

@@ -79,19 +79,7 @@
     display: block;
   }
   
-  input {
-    width: 100%;
-    padding: 0.8rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1rem;
-    outline: none;
-    transition: all 0.3s;
-  }
-  
-  input:focus {
-    border-color: #ff9a8b;
-  }
+ 
   
   .submit-btn {
     padding: 0.8rem 2rem;
