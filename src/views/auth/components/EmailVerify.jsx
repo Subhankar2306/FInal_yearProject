@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { sendOtpForProfileValidation, verifyOtpForProfileValidation } from '../../../store/user/userController';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { resetState } from '../../../store/user/userSlice';
 
-function EmailVerify({ email }) {
+function EmailVerify({ email , onClose = '' }) {
   const [otp, setOtp] = useState('');
   const [timer, setTimer] = useState(300); // 5 minutes in seconds
 
@@ -16,21 +17,31 @@ function EmailVerify({ email }) {
     if (email) {
       dispatch(sendOtpForProfileValidation({ email }));
     }
+   
   }, [email, dispatch]);
 
   useEffect(() => {
     if (status.sendOtp === 'success') {
       toast.success(message);
       setTimer(300); // Reset timer to 5 minutes when OTP is sent
+      
     } else if (status.sendOtp === 'rejected') {
       toast.error(message);
     }
 
     if (status.verifyOtp === 'success') {
       toast.success(message);
+      if(onClose){
+        onClose();
+        dispatch(resetState())
+      }
       navigate('/profile');
     } else if (status.verifyOtp === 'rejected') {
       toast.error(message);
+    }
+
+    return ()=>{
+      dispatch(resetState())
     }
   }, [status, message, navigate]);
 

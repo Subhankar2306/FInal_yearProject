@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../store/user/userController';
 import { toast } from 'react-toastify';
+import { resetState } from '../../store/user/userSlice';
 
 function SignIn() {
   const [email, setEmail] = useState('');
@@ -28,6 +29,9 @@ function SignIn() {
         navigate('/')
     } else if(status.loginUser === 'rejected'){
         toast.error(message)
+    }
+    return ()=>{
+      dispatch(resetState())
     }
 
   }, [status])

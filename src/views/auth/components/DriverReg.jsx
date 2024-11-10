@@ -1,134 +1,141 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
-// Assume this action creator exists in your Redux setup
+import { IoClose } from "react-icons/io5"
+import { toast } from 'react-toastify'
 // import { registerDriver } from './driverSlice'
 
 function DriverReg() {
   const dispatch = useDispatch()
-//   const { loading, error } = useSelector((state) => state.driver)
+  // const { loading, error } = useSelector((state) => state.driver)
 
-  const [formData, setFormData] = useState({
-    address: '',
-    phone: '',
-    typeOfCar: [{ name: '', experience: 0 }],
-    isOwnCar: false,
-    totalExperience: 0
-  })
+  // Individual state variables for each input field
+  const [address, setAddress] = useState('')
+  const [phone, setPhone] = useState('')
+  const [typeOfCar, setTypeOfCar] = useState([])
+  const [isOwnCar, setIsOwnCar] = useState(false)
+  const [totalExperience, setTotalExperience] = useState(0)
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target
-    setFormData(prevData => ({
-      ...prevData,
-      [name]: type === 'checkbox' ? checked : value
-    }))
+  const [carName , setCarName ] = useState('')
+  const [ drivingEx , setDrivingEx ] = useState(0)
+
+  const handleAddCarType = () => {
+    if(carName && drivingEx > 0){
+      setTypeOfCar([...typeOfCar, { name: carName, experience: drivingEx }])
+
+    }else{
+      toast.info('Car name is required, and experience must be over 0 years')
+
+    }
+    setCarName('')
+    setDrivingEx(0)
   }
 
   const handleCarTypeChange = (index, field, value) => {
-    const newTypeOfCar = [...formData.typeOfCar]
-    newTypeOfCar[index][field] = value
-    setFormData(prevData => ({
-      ...prevData,
-      typeOfCar: newTypeOfCar
-    }))
+    const updatedTypeOfCar = [...typeOfCar]
+    updatedTypeOfCar[index][field] = value
+    setTypeOfCar(updatedTypeOfCar)
   }
 
-  const addCarType = () => {
-    setFormData(prevData => ({
-      ...prevData,
-      typeOfCar: [...prevData.typeOfCar, { name: '', experience: 0 }]
-    }))
+  const handleDeleteCarType = (index) => {
+    const updatedTypeOfCar = typeOfCar.filter((_, i) => i !== index)
+    setTypeOfCar(updatedTypeOfCar)
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    const formData = {
+      address,
+      phone,
+      typeOfCar,
+      isOwnCar,
+      totalExperience
+    }
     // dispatch(registerDriver(formData))
   }
 
   return (
     <div className="driver-reg-container">
-      <h2 className="form-title">Driver Registration</h2>
+      <h2 className="form-title text-xl"> Add Driver Details</h2>
       <form onSubmit={handleSubmit} className="driver-reg-form">
-        <div className="form-group">
-          <label htmlFor="address">Address</label>
-          <input
-            type="text"
-            id="address"
-            name="address"
-            value={formData.address}
-            onChange={handleChange}
-            required
-            className="form-input"
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="phone">Phone Number</label>
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            required
-            maxLength="10"
-            className="form-input"
-          />
-        </div>
-        <div className="form-group">
-          <label>Type of Car</label>
-          {formData.typeOfCar.map((car, index) => (
-            <div key={index} className="car-type-entry">
-              <input
-                type="text"
-                value={car.name}
-                onChange={(e) => handleCarTypeChange(index, 'name', e.target.value)}
-                placeholder="Car Name"
-                className="form-input"
-                maxLength="60"
-                required
-              />
-              <input
-                type="number"
-                value={car.experience}
-                onChange={(e) => handleCarTypeChange(index, 'experience', e.target.value)}
-                placeholder="Experience (years)"
-                className="form-input"
-                min="0"
-              />
+        
+        <input
+          type="text"
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+          required
+          className="custom-input my-2"
+          placeholder="Address -> like 123 Main St, Apartment 4B, Springfield, IL 62704"
+        />
+
+        <input
+          type="tel"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          required
+          maxLength="10"
+          className="custom-input my-2"
+          placeholder='Phone Number'
+        />
+
+        <label> Driving Experience </label>
+        <div className="flex flex-wrap gap-3 added-car-types mb-4">
+          {typeOfCar.map((car, index) => (
+            <div key={index} className="flex items-center my-2 border rounded-full bg-gray-200 p-2 px-3 text-black">
+              <p className="mr-2">{car.name} - {car.experience} years</p>
+              <button
+                type="button"
+                onClick={() => handleDeleteCarType(index)}
+                className="text-red-500 hover:underline"
+              >
+                <IoClose />
+              </button>
             </div>
           ))}
-          <button type="button" onClick={addCarType} className="add-car-btn">
+        </div>
+
+        <div className="car-type-entry mb-4">
+          <input
+            type="text"
+            value={carName}
+            onChange={(e) => setCarName(e.target.value)}
+            placeholder="Car Name"
+            className="custom-input my-2"
+            maxLength="60"
+            required
+          />
+          <input
+            type="number"
+            value={drivingEx}
+            onChange={(e) => setDrivingEx(e.target.value)}
+            placeholder="Experience (years)"
+            className="custom-input my-2"
+            min="0"
+          />
+          <button type="button" onClick={handleAddCarType} className="submit-btn">
             Add Another Car Type
           </button>
         </div>
-        <div className="form-group">
-          <label htmlFor="isOwnCar" className="checkbox-label">
-            <input
-              type="checkbox"
-              id="isOwnCar"
-              name="isOwnCar"
-              checked={formData.isOwnCar}
-              onChange={handleChange}
-              className="form-checkbox"
-            />
-            Do you own a car?
-          </label>
-        </div>
-        <div className="form-group">
-          <label htmlFor="totalExperience">Total Driving Experience (years)</label>
-          <input
-            type="number"
-            id="totalExperience"
-            name="totalExperience"
-            value={formData.totalExperience}
-            onChange={handleChange}
-            min="0"
-            className="form-input"
-          />
-        </div>
+
+        <input
+          type="checkbox"
+          checked={isOwnCar}
+          onChange={(e) => setIsOwnCar(e.target.checked)}
+          className="form-checkbox mr-3 my-2"
+        />
+        Do you own a car?
+
+        <input
+          type="number"
+          value={totalExperience}
+          onChange={(e) => setTotalExperience(e.target.value)}
+          min="0"
+          className="custom-input my-2"
+          placeholder="Total Experience"
+        />
+
         <button
           type="submit"
-        //   disabled={loading}
+          // disabled={loading}
           className="submit-btn"
         >
           {/* {loading ? 'Registering...' : 'Register as Driver'} */}

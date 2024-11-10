@@ -41,6 +41,7 @@ function App() {
         pauseOnHover
         theme="colored"
       />
+      
        <Routes>
         
         <Route path='/' element={<Layout/>}>  
