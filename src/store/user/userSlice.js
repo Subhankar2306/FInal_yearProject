@@ -34,6 +34,20 @@ export const userSlice = createSlice({
     initialState ,
     reducers:{
 
+        resetState :(state , action)=>{
+            state.error = null
+            state.message = ''
+            state.status.regUser = ''
+            state.status.loginUser = ''
+            state.status.authenticateUser = ''
+            state.status.logoutUser = ''
+            state.status.changePassword = ''
+            state.status.sendOtp = ''
+            state.status.verifyOtp = ""
+            state.status.forgetPassword = ''
+
+        }
+
     },
     extraReducers:(builder)=>{
 
@@ -217,5 +231,8 @@ export const userSlice = createSlice({
 
     }
 })
+
+
+export const { resetState } = userSlice.actions
 
 export default userSlice.reducer 

@@ -2,3 +2,7 @@
 .custom-input {
     @apply  w-full p-3 border border-gray-300 rounded-md text-base outline-none transition-all duration-300 focus:border-[#ff9a8b]
 }
+
+.popup-container{
+    @apply fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50;
+}

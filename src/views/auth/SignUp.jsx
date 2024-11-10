@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { regUser } from "../../store/user/userController";
 import { toast } from "react-toastify";
 import EmailVerify from "./components/EmailVerify";
+import { resetState } from "../../store/user/userSlice";
 
 function SignUp() {
   const [name, setName] = useState("");
@@ -20,16 +21,14 @@ function SignUp() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-
     dispatch(regUser({name , role , email , password}))
-
   };
 
   useEffect(()=>{
      if(message ){
       if(status.regUser === 'success'){
         toast.success(message)
+        dispatch(resetState())
       } else if(status.regUser === 'rejected'){
         toast.error(message)
       }
@@ -46,7 +45,7 @@ function SignUp() {
       }
   } , [user])
 
-  console.log('log is verify' , isVerify , user);
+  console.log('log is verify' , isVerify , status , loading , user);
   
 
   return (
