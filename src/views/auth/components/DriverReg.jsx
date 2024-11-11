@@ -1,12 +1,16 @@
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react'
+
 import { IoClose } from "react-icons/io5"
 import { toast } from 'react-toastify'
+import AddCar from './AddCarSection'
+import { createDriverProfile } from '../../../store/driver/driverController'
+import { resetDriverState } from '../../../store/driver/driverSlice'
+import { useDispatch, useSelector } from 'react-redux'
 // import { registerDriver } from './driverSlice'
 
 function DriverReg() {
   const dispatch = useDispatch()
-  // const { loading, error } = useSelector((state) => state.driver)
+  const { driver , error , message , loading , status } = useSelector((state)=> state.driver)
 
   // Individual state variables for each input field
   const [address, setAddress] = useState('')
@@ -48,10 +52,25 @@ function DriverReg() {
       phone,
       typeOfCar,
       isOwnCar,
-      totalExperience
+      totalExperience ,
     }
-    // dispatch(registerDriver(formData))
+
+    console.info(formData)
+    dispatch(createDriverProfile(formData))
   }
+
+  useEffect(() => {
+    if (status.createDriverProfile === "success") {
+      toast.success(message);
+    } else if (status.createDriverProfile === "rejected") {
+      toast.error(message);
+    }
+
+    return () => {
+      dispatch(resetDriverState());
+    };
+  }, [status]);
+  
 
   return (
     <div className="driver-reg-container">
@@ -101,7 +120,7 @@ function DriverReg() {
             placeholder="Car Name"
             className="custom-input my-2"
             maxLength="60"
-            required
+           
           />
           <input
             type="number"
@@ -135,14 +154,30 @@ function DriverReg() {
 
         <button
           type="submit"
-          // disabled={loading}
+          disabled={loading.createDriverProfileLoading }
           className="submit-btn"
         >
-          {/* {loading ? 'Registering...' : 'Register as Driver'} */}
-          Register
+          { loading.createDriverProfileLoading ? 'loading...' : 'Register as Driver'}
+          
         </button>
       </form>
       {/* {error && <p className="error-message">{error}</p>} */}
+      {
+        isOwnCar && (
+          <div className="popup-container ">
+          <div className=" flex flex-col gap-4 bg-white rounded-md shadow-sm p-6 pt-4 max-w-[500px] overflow-auto h-[90vh] ">
+            <div
+              onClick={() => setIsOwnCar(false)}
+              className="self-end cursor-pointer"
+            >
+              {" "}
+              ❌{" "}
+            </div>
+            <AddCar/>
+          </div>
+        </div>
+        )
+      }
     </div>
   )
 }
