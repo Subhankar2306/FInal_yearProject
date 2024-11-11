@@ -13,7 +13,8 @@ const initialState = {
         changePassword:'',
         sendOtp:'',
         verifyOtp:"",
-        forgetPassword:''
+        forgetPassword:'',
+
     },
     loading :{
         regUserLoading:false,

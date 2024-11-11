@@ -149,7 +149,7 @@ function Profile() {
 
       <div className=" border border-gray-300 rounded-sm p-3">
 
-      {user?.role === "customer" ? (
+     { !user.isProfileComplete && user?.role === "customer" ? (
         <CustomerReg />
       ) : user.role === "driver" ? (
         <DriverReg />
