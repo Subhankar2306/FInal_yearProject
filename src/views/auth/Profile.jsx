@@ -149,13 +149,14 @@ function Profile() {
 
       <div className=" border border-gray-300 rounded-sm p-3">
 
-     { !user.isProfileComplete && user?.role === "customer" ? (
+     { !user.isProfileComplete && (user?.role === "customer" ? (
         <CustomerReg />
-      ) : user.role === "driver" ? (
+      ) : (user?.role === "driver" ? (
         <DriverReg />
-      ) : (
-        <OwnerReg />
-      )}
+      ) : (  user?.role === "owner" && <OwnerReg />
+      )) )
+    
+    }
 
       </div>
      
