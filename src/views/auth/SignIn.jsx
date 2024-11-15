@@ -48,7 +48,7 @@ function SignIn() {
       {/* Right side form section */}
       <div className="signin-form-container">
         <form className="signin-form" onSubmit={handleSubmit}>
-          <h2>Sign In</h2>
+          <h2 >Sign In</h2>
           <div className="input-group">
             {/* <label htmlFor="email">Email</label> */}
             <input
