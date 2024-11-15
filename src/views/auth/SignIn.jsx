@@ -48,7 +48,7 @@ function SignIn() {
       {/* Right side form section */}
       <div className="signin-form-container">
         <form  className="signin-form flex flex-col gap-3" onSubmit={handleSubmit}>
-        <h2 className="text-2xl text-gray-600">Sign in</h2>
+        <h2 className="text-2xl text-gray-600">Sign in</h2>        
           <div className="input-group">
             {/* <label htmlFor="email">Email</label> */}
             <input
