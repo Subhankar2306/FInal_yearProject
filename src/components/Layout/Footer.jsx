@@ -9,7 +9,7 @@ function Footer() {
         <div className="flex flex-wrap justify-between items-start gap-8">
           {/* About Section */}
           <div className="w-full sm:w-1/3">
-            <h2 className="text-xl font-semibold mb-4">About Us</h2>
+            <h2 className="text-xl font-semibold mb-4 text-white">About Us</h2>
             <p className="text-gray-400 leading-relaxed">
               Vraman Sathi is your trusted partner in discovering the world.
               Whether you’re planning your next vacation or seeking the best
@@ -19,12 +19,12 @@ function Footer() {
 
           {/* Quick Links */}
           <div className="w-full sm:w-1/3">
-            <h2 className="text-xl font-semibold mb-4">Quick Links</h2>
+            <h2 className="text-xl font-semibold mb-4 text-white">Quick Links</h2>
             <ul className="space-y-2">
               <li>
                 <a
                   href="/"
-                  className="text-white hover:text-blue-600 transition"
+                  className="text-gray-400 hover:text-blue-600 transition"
                 >
                   Home
                 </a>
@@ -32,7 +32,7 @@ function Footer() {
               <li>
                 <a
                   href="/about"
-                  className="text-white hover:text-blue-600 transition"
+                  className="text-gray-400 hover:text-blue-600 transition"
                 >
                   About
                 </a>
@@ -40,7 +40,7 @@ function Footer() {
               <li>
                 <a
                   href="/cars"
-                  className="text-white hover:text-blue-600 transition"
+                  className="text-gray-400 hover:text-blue-600 transition"
                 >
                   Cars
                 </a>
@@ -48,7 +48,7 @@ function Footer() {
               <li>
                 <a
                   href="/blogs"
-                  className="text-white hover:text-blue-600 transition"
+                  className="text-gray-400 hover:text-blue-600 transition"
                 >
                   Blogs
                 </a>
@@ -58,7 +58,7 @@ function Footer() {
 
           {/* Contact Information */}
           <div className="w-full sm:w-1/3">
-            <h2 className="text-xl font-semibold mb-4">Contact Us</h2>
+            <h2 className="text-xl font-semibold mb-4 text-white">Contact Us</h2>
             <ul className="text-gray-400 space-y-2">
               <li>Email: info@vramansathi.com</li>
               <li>Phone: +1 234 567 890</li>
@@ -95,7 +95,7 @@ function Footer() {
               <i className="fab fa-instagram text-xl"></i>
             </a>
           </div>
-          <p className="text-gray-400 text-sm text-center">
+          <p className="text-white text-sm text-center ">
             &copy; {new Date().getFullYear()} Vraman Sathi. All rights reserved.
           </p>
         </div>
