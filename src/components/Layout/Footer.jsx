@@ -1,12 +1,7 @@
 import React from "react";
 
-
 function Footer() {
-  return
-  setup
-    <div></div>
-  )
-
+  return (
     <footer className="bg-slate-900 text-white py-8">
       <div className="container mx-auto px-4">
         {/* Top Section */}
@@ -23,7 +18,9 @@ function Footer() {
 
           {/* Quick Links */}
           <div className="w-full sm:w-1/3">
-            <h2 className="text-xl font-semibold mb-4 text-white">Quick Links</h2>
+            <h2 className="text-xl font-semibold mb-4 text-white">
+              Quick Links
+            </h2>
             <ul className="space-y-2">
               <li>
                 <a
@@ -62,7 +59,9 @@ function Footer() {
 
           {/* Contact Information */}
           <div className="w-full sm:w-1/3">
-            <h2 className="text-xl font-semibold mb-4 text-white">Contact Us</h2>
+            <h2 className="text-xl font-semibold mb-4 text-white">
+              Contact Us
+            </h2>
             <ul className="text-gray-400 space-y-2">
               <li>Email: info@vramansathi.com</li>
               <li>Phone: +1 234 567 890</li>
@@ -106,7 +105,6 @@ function Footer() {
       </div>
     </footer>
   );
- main
 }
 
 export default Footer;
