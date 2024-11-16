@@ -58,6 +58,7 @@ function SignIn() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              className='custom-input'
             />
           </div>
           <div className="input-group">
@@ -69,6 +70,7 @@ function SignIn() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              className='custom-input'
             />
           </div>
           <button type="submit" className="submit-btn"> {loading.loginUserLoading? 'loading...':'continue' } </button>

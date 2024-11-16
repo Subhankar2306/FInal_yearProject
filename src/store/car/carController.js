@@ -9,11 +9,11 @@ export const createNewCar = createAsyncThunk(
         
         try {
             const { data } = await axios.post(
-                `${baseUrl}/car`, 
+                `${baseUrl}/vehicle`, 
                 fromData ,
                 {
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'multipart/from-data'
                     },
                     withCredentials: true
                 }

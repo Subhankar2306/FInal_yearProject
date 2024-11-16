@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import {  createNewCar } from "./carController";
 
 const initialState = {
-    car: {},
+    car: [],
+    selectedCar :{},
     status: {
         createNewCar: ''
     },
@@ -31,8 +32,8 @@ const carSlice = createSlice({
             state.status.createNewCar = 'pending';
         });
         builder.addCase(createNewCar.fulfilled, (state, action) => {
-            const { message, car } = action.payload;
-            state.car = car;
+            const { message, data } = action.payload;
+            state.selectedCar = data;
             state.message = message;
             state.loading.createNewCarLoading = false;
             state.status.createNewCar = 'success';

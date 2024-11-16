@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IoClose } from "react-icons/io5";
 import { toast } from 'react-toastify';
 import { createNewCar } from '../../../store/car/carController';
+import { resetCarState } from '../../../store/car/carSlice';
 // import { addCar } from './carSlice'; // import your addCar action
 
-function AddCar() {
+function AddCar({ onDetails= '' , onClose='' }) {
   const dispatch = useDispatch();
-  const { car , loading , message , status , error} = useSelector((state)=> state.car)
+  const { car , selectedCar , loading , message , status , error} = useSelector((state)=> state.car)
 
   const [name, setName] = useState('');
   const [brand, setBrand] = useState('');
@@ -17,6 +18,7 @@ function AddCar() {
   const [area, setArea] = useState([]);
   const [areaName, setAreaName] = useState('');
   const [ modelNumber , setModelNumber ] = useState('')
+  const [vehicleType , setVehicleType] = useState('car')
 
   // Handle file selection and generate a preview URL
   const handleImageChange = (e) => {
@@ -29,7 +31,7 @@ function AddCar() {
 
   const handleAddArea = () => {
     if (areaName) {
-      setArea([...area, { name: areaName }]);
+      setArea([...area, areaName]);
       setAreaName('');
     } else {
       toast.info('Area name is required');
@@ -59,15 +61,26 @@ function AddCar() {
   useEffect(()=>{
       if(status.createNewCar === 'success'){
          toast.success(message)
+         alert("ok")
+         if(onDetails){
+          onDetails(selectedCar)
+         }
+         if(onClose){
+          onClose()
+         }
       } else if(status.createNewCar === 'rejected') {
          toast.error(message)
       }
-  }, [status.createNewCar]) 
+
+    return ()=>{
+      dispatch(resetCarState())
+    }
+  }, [status.createNewCar , dispatch]) 
 
   return (
     <div className="add-car-container">
       <h2 className="form-title text-xl">Add Car Details</h2>
-      <form onSubmit={handleSubmit} className="add-car-form">
+      <form  className="add-car-form">
         <input
           type="text"
           value={name}
@@ -77,7 +90,11 @@ function AddCar() {
           placeholder="Car Name"
           maxLength="60"
         />
-
+        <select name="" id="" value={vehicleType} onChange={(e)=> setVehicleType(e.target.value)}>
+          <option value={'bus'}>bus</option>
+          <option value="">B</option>
+          <option value="">C</option>
+        </select>
         <input
           type="text"
           value={modelNumber}
@@ -123,7 +140,7 @@ function AddCar() {
         <div className="flex flex-wrap gap-3 mb-4">
           {area.map((location, index) => (
             <div key={index} className="flex items-center my-2 border rounded-full bg-gray-200 p-2 px-3 text-black">
-              <p className="mr-2">{location.name}</p>
+              <p className="mr-2">{location}</p>
               <button
                 type="button"
                 onClick={() => handleDeleteArea(index)}
@@ -150,6 +167,7 @@ function AddCar() {
 
         <button
           type="submit"
+          onClick={handleSubmit}
           className="submit-btn"
           disabled ={loading.createNewCarLoading}
         >
