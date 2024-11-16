@@ -2,6 +2,7 @@ import React from "react";
 
 function Footer() {
   return (
+
     <footer className="bg-slate-900 text-white py-8">
       <div className="container mx-auto px-4">
         {/* Top Section */}
@@ -96,6 +97,7 @@ function Footer() {
               aria-label="Instagram"
             >
               <i className="fab fa-instagram text-xl"></i>
+              <FontAwesomeIcon icon="fa-brands fa-youtube" />
             </a>
           </div>
           <p className="text-white text-sm text-center ">
@@ -105,6 +107,7 @@ function Footer() {
       </div>
     </footer>
   );
+
 }
 
 export default Footer;
