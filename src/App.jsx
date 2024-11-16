@@ -15,6 +15,7 @@ import { authenticateUser } from './store/user/userController'
 import './global.css'
 import Profile from './views/auth/Profile'
 
+
 function App() {
   const dispatch = useDispatch()
   const user =  useSelector((state)=> state.user)
@@ -47,6 +48,8 @@ function App() {
         <Route path='/' element={<Layout/>}>  
            <Route index element={<Home/>}/>
            <Route path='/about' element={<About/>} />
+           
+
            <Route path='/contact' element={<Contact/>} />
            <Route path='/profile' element={<Profile/>} />
         </Route>
