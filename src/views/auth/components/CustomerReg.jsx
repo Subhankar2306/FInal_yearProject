@@ -31,6 +31,7 @@ function CustomerReg() {
       status,
       transportDate: new Date(),
     };
+    
     setTransportHistory([...transportHistory, newEntry]);
     setVehicleId('');
     setOrigin('');
