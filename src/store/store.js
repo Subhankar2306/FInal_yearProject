@@ -3,6 +3,7 @@ import  userSlice  from "./user/userSlice";
 import driverSlice from "./driver/driverSlice.js";
 import customerSlice from './customer/customerSlice.js'
 import ownerSlice from './owner/ownerSlice.js'
+import carSlice from './car/carSlice.js'
 
 
 const store = configureStore({
@@ -10,7 +11,8 @@ const store = configureStore({
         user : userSlice ,
         driver: driverSlice,
         customer: customerSlice ,
-        owner : ownerSlice
+        owner : ownerSlice ,
+        car : carSlice
     }
 })
 

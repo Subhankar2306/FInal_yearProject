@@ -50,6 +50,7 @@ export const userSlice = createSlice({
         }
 
     },
+
     extraReducers:(builder)=>{
 
      // register user ...    
@@ -86,7 +87,7 @@ export const userSlice = createSlice({
      // fetch user details...    
         // pending 
         builder.addCase(authenticateUser.pending , (state , action)=>{
-             
+
             state.error = null
             state.message = ''
             state.status.authenticateUser = 'pending'

@@ -56,7 +56,7 @@ function App() {
 
       <Route path='/sign-up' element={<SignUp/>} />
       <Route path='/sign-in' element={<SignIn/>} />
-      <Route path='/*' element={<h2>404 error</h2>}/>
+      <Route path='/*' element={<div className='h-screen w-screen flex justify-center items-center text-2xl text-red-400'>404 error</div>}/>
        </Routes>
 
      </Router>
