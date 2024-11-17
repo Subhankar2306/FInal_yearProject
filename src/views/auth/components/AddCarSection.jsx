@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { IoClose } from "react-icons/io5";
 import { toast } from 'react-toastify';
+import { createNewCar } from '../../../store/car/carController';
+import { resetCarState } from '../../../store/car/carSlice';
 // import { addCar } from './carSlice'; // import your addCar action
 
-function AddCar() {
+function AddCar({ onDetails= '' , onClose='' }) {
   const dispatch = useDispatch();
+  const { car , selectedCar , loading , message , status , error} = useSelector((state)=> state.car)
 
   const [name, setName] = useState('');
   const [brand, setBrand] = useState('');
@@ -14,20 +17,21 @@ function AddCar() {
   const [rate, setRate] = useState(0);
   const [area, setArea] = useState([]);
   const [areaName, setAreaName] = useState('');
-  const [ carNumber , setCarNumber ] = useState('')
+  const [ modelNumber , setModelNumber ] = useState('')
+  const [vehicleType , setVehicleType] = useState('car')
 
   // Handle file selection and generate a preview URL
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setImageFile(file);
-      setImageURL(URL.createObjectURL(file)); // Set preview URL
+      setImageURL(URL.createObjectURL(file)); 
     }
   };
 
   const handleAddArea = () => {
     if (areaName) {
-      setArea([...area, { name: areaName }]);
+      setArea([...area, areaName]);
       setAreaName('');
     } else {
       toast.info('Area name is required');
@@ -42,24 +46,41 @@ function AddCar() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const formData = {
-      name,
-      image: { url: imageURL || undefined }, // use preview URL if available
-      brand,
-      rate,
-      area,
-      userId: 'user_id_here' // Replace with actual user ID
-    };
-
-    // Add logic to upload imageFile to Cloudinary or another image hosting service if needed
-    // dispatch(addCar(formData));
-    toast.success('Car added successfully');
+    const fromData = new FormData()
+    fromData.append("image", imageURL);
+    fromData.set("name", name);
+    fromData.set("modelNumber", modelNumber);
+    fromData.set("rate", rate);
+    fromData.set('area' , area)
+    fromData.set('brand' , brand)
+     
+    dispatch(createNewCar({fromData}))
+    
   };
+
+  useEffect(()=>{
+      if(status.createNewCar === 'success'){
+         toast.success(message)
+         alert("ok")
+         if(onDetails){
+          onDetails(selectedCar)
+         }
+         if(onClose){
+          onClose()
+         }
+      } else if(status.createNewCar === 'rejected') {
+         toast.error(message)
+      }
+
+    return ()=>{
+      dispatch(resetCarState())
+    }
+  }, [status.createNewCar , dispatch]) 
 
   return (
     <div className="add-car-container">
       <h2 className="form-title text-xl">Add Car Details</h2>
-      <form onSubmit={handleSubmit} className="add-car-form">
+      <form  className="add-car-form">
         <input
           type="text"
           value={name}
@@ -69,11 +90,15 @@ function AddCar() {
           placeholder="Car Name"
           maxLength="60"
         />
-
+        <select name="" id="" value={vehicleType} onChange={(e)=> setVehicleType(e.target.value)}>
+          <option value={'bus'}>bus</option>
+          <option value="">B</option>
+          <option value="">C</option>
+        </select>
         <input
           type="text"
-          value={carNumber}
-          onChange={(e) => setCarNumber(e.target.value)}
+          value={modelNumber}
+          onChange={(e) => setModelNumber(e.target.value)}
           required
           className="custom-input my-2"
           placeholder="Car Number"
@@ -115,7 +140,7 @@ function AddCar() {
         <div className="flex flex-wrap gap-3 mb-4">
           {area.map((location, index) => (
             <div key={index} className="flex items-center my-2 border rounded-full bg-gray-200 p-2 px-3 text-black">
-              <p className="mr-2">{location.name}</p>
+              <p className="mr-2">{location}</p>
               <button
                 type="button"
                 onClick={() => handleDeleteArea(index)}
@@ -142,9 +167,11 @@ function AddCar() {
 
         <button
           type="submit"
+          onClick={handleSubmit}
           className="submit-btn"
+          disabled ={loading.createNewCarLoading}
         >
-          Add Car
+          { loading.createNewCarLoading? 'loading...':'Add Car'}
         </button>
       </form>
     </div>

@@ -1,39 +1,42 @@
-import React, { useEffect, useState } from 'react'
-
-import { IoClose } from "react-icons/io5"
-import { toast } from 'react-toastify'
-//import AddCar from './AddCarSection'
-//import { createOwnerProfile } from '../../../store/owner/ownerController'
-//import { resetOwnerState } from '../../../store/owner/ownerSlice'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react';
+import { IoClose } from 'react-icons/io5';
+import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
+import AddCar from './AddCarSection';
+import { resetOwnerState } from '../../../store/owner/ownerSlice';
+// import { createOwnerProfile } from '../../../store/owner/ownerController';
 
 function OwnerReg() {
-  const dispatch = useDispatch()
-  const { error, message, loading, status } = useSelector((state) => state.owner)
+  const dispatch = useDispatch();
+  const { error, message, loading, status } = useSelector((state) => state.owner);
 
-  const [userId, setUserId] = useState('') // for `user` field (ObjectId)
-  const [email, setEmail] = useState('')
-  const [phone, setPhone] = useState('')
-  const [address, setAddress] = useState('')
-  const [vehicles, setVehicles] = useState([{ vehicleId: '', quantity: 0, available: 0 }])
+  // Form States
+  const [userId, setUserId] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState('');
+  const [vehicleDetails, setVehicleDetails] = useState([]); // Array of vehicle objects
+  const [isOpen, setIsOpen] = useState(false);
 
-  const handleAddVehicle = () => {
-    setVehicles([...vehicles, { vehicleId: '', quantity: 0, available: 0 }])
-  }
+  // Add a vehicle
+  const handleVehicleChange = (vehicle) => {
+    console.log(vehicle);
+    
+    const { name, modelNumber, _id } = vehicle;
+    const newVehicle = { name, modelNumber, id: _id };
+    setVehicleDetails((prev) => [...prev, newVehicle]);
+  };
 
-  const handleVehicleChange = (index, field, value) => {
-    const updatedVehicles = [...vehicles]
-    updatedVehicles[index][field] = value
-    setVehicles(updatedVehicles)
-  }
+  // Remove a vehicle
+  const handleRemoveVehicle = (id) => {
+    console.log(id);
+    
+  };
 
-  const handleRemoveVehicle = (index) => {
-    const updatedVehicles = vehicles.filter((_, i) => i !== index)
-    setVehicles(updatedVehicles)
-  }
-
+  // Submit Form
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
+
     const formData = {
       user: userId,
       contactInfo: {
@@ -41,42 +44,45 @@ function OwnerReg() {
         phone,
         address,
       },
-      vehicles: vehicles.map((vehicle) => ({
-        vehicle: vehicle.vehicleId,
-        quantity: vehicle.quantity,
-        available: vehicle.available,
+      vehicles: vehicleDetails.map((vehicle) => ({
+        vehicle: vehicle.id,
+        name: vehicle.name,
+        modelNumber: vehicle.modelNumber,
       })),
-    }
+    };
 
-    dispatch(createOwnerProfile(formData))
-  }
+    // dispatch(createOwnerProfile(formData)); Uncomment when ready
+    console.log('Form Data Submitted:', formData);
+  };
 
-  React.useEffect(() => {
-    if (status === "success") {
-      toast.success(message)
-    } else if (status === "error") {
-      toast.error(error)
+  // Handle success/error toast notifications
+  useEffect(() => {
+    if (status?.createOwnerProfile === 'success') {
+      toast.success(message);
+    } else if (status?.createOwnerProfile === 'rejected') {
+      toast.error(error);
     }
 
     return () => {
-      dispatch(resetOwnerState())
-    }
-  }, [status, message, error, dispatch])
+      dispatch(resetOwnerState());
+    };
+  }, [status, message, error, dispatch]);
 
   return (
     <div className="owner-reg-container">
       <h2 className="form-title text-xl">Register as Owner</h2>
       <form onSubmit={handleSubmit} className="owner-reg-form">
-
-      {/*<input
+        {/* User ID */}
+        <input
           type="text"
           value={userId}
           onChange={(e) => setUserId(e.target.value)}
           required
           className="custom-input my-2"
           placeholder="User ID"
-        />*/}
+        />
 
+        {/* Email */}
         <input
           type="email"
           value={email}
@@ -86,6 +92,7 @@ function OwnerReg() {
           placeholder="Email"
         />
 
+        {/* Phone */}
         <input
           type="tel"
           value={phone}
@@ -95,6 +102,7 @@ function OwnerReg() {
           placeholder="Phone Number"
         />
 
+        {/* Address */}
         <input
           type="text"
           value={address}
@@ -103,52 +111,64 @@ function OwnerReg() {
           placeholder="Address"
         />
 
-        <label>Vehicle Information</label>
-        {vehicles.map((vehicle, index) => (
-          <div key={index} className="vehicle-entry mb-4 flex items-center gap-2">
-            <input
-              type="text"
-              value={vehicle.vehicleId}
-              onChange={(e) => handleVehicleChange(index, 'vehicleId', e.target.value)}
-              placeholder="Vehicle ID"
-              className="custom-input my-2"
-            />
-            <input
-              type="number"
-              value={vehicle.quantity}
-              onChange={(e) => handleVehicleChange(index, 'quantity', e.target.value)}
-              placeholder="Quantity"
-              className="custom-input my-2"
-              min="1"
-            />
-            <input
-              type="number"
-              value={vehicle.available}
-              onChange={(e) => handleVehicleChange(index, 'available', e.target.value)}
-              placeholder="Available"
-              className="custom-input my-2"
-              min="0"
-            />
-            <button type="button" onClick={() => handleRemoveVehicle(index)} className="text-red-500 hover:underline">
-              Remove
-            </button>
-          </div>
-        ))}
+        {/* Vehicle Information */}
+        <label className="block font-medium my-2">Vehicle Information</label>
+        {vehicleDetails.length > 0 &&
+          vehicleDetails.map((vehicle, index) => (
+            <div
+              key={vehicle.id}
+              className="flex items-center my-2 border rounded-full bg-gray-200 p-2 px-3 text-black"
+            >
+              <p className="mr-2">{`${vehicle.name} - ${vehicle.modelNumber}`}</p>
+              <button
+                type="button"
+                onClick={() => handleRemoveVehicle(vehicle.id)}
+                className="text-red-500 hover:underline"
+              >
+                <IoClose />
+              </button>
+            </div>
+          ))}
 
-        <button type="button" onClick={handleAddVehicle} className="add-vehicle-btn my-2">
+        {/* Add Vehicle Button */}
+        <button
+          type="button"
+          onClick={() => setIsOpen(true)}
+          className="submit-btn my-2"
+        >
           Add Another Vehicle
         </button>
 
+        {/* Popup for Vehicle Details */}
+        {
+          isOpen && (
+            <div className="popup-container ">
+            <div className=" flex flex-col gap-4 bg-white rounded-md shadow-sm p-6 pt-4 max-w-[500px] overflow-auto h-[90vh] ">
+              <div
+                onClick={() => setIsOpen(false)}
+                className="self-end cursor-pointer"
+              >
+                {" "}
+                ❌{" "}
+              </div>
+              <AddCar onDetails={handleVehicleChange} onClose={()=>setIsOpen(false)}/>
+            </div>
+          </div>
+          )
+
+        }
+
+        {/* Submit Button */}
         <button
           type="submit"
-          disabled={loading}
-          className="submit-btn"
+          disabled={loading?.createOwnerProfileLoading}
+          className="submit-btn py-2 px-4 rounded-md"
         >
-          {loading ? 'Registering...' : 'Register as Owner'}
+          {loading?.createOwnerProfileLoading ? 'Registering...' : 'Register as Owner'}
         </button>
       </form>
     </div>
-  )
+  );
 }
 
-export default OwnerReg
+export default OwnerReg;

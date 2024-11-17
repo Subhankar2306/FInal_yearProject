@@ -1,10 +1,12 @@
 import React from "react";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function Footer() {
-  return(
-  
-    
+  return
+  setup
+    <div></div>
+  )
 
     <footer className="bg-slate-900 text-white py-8">
       <div className="container mx-auto px-4">
@@ -96,6 +98,7 @@ function Footer() {
               aria-label="Instagram"
             >
               <i className="fab fa-instagram text-xl"></i>
+              <FontAwesomeIcon icon="fa-brands fa-youtube" />
             </a>
           </div>
           <p className="text-white text-sm text-center ">
@@ -104,8 +107,8 @@ function Footer() {
         </div>
       </div>
     </footer>
-  )
- 
+  );
+ main
 }
 
 export default Footer;
