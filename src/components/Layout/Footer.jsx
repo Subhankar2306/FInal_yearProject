@@ -2,10 +2,9 @@ import React from "react";
 
 
 function Footer() {
-  return
-  setup
-    <div></div>
-  )
+  return(
+  
+    
 
     <footer className="bg-slate-900 text-white py-8">
       <div className="container mx-auto px-4">
@@ -105,8 +104,8 @@ function Footer() {
         </div>
       </div>
     </footer>
-  );
- main
+  )
+ 
 }
 
 export default Footer;
