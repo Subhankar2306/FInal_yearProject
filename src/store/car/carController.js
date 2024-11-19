@@ -29,3 +29,29 @@ export const createNewCar = createAsyncThunk(
         }
     }
 );
+
+
+export const deleteVehicle = createAsyncThunk('car/deleteVehicle' ,
+    async ({ id }, { rejectWithValue }) => {
+        
+        try {
+            const { data } = await axios.delete(
+                `${baseUrl}/vehicle/${id}`, 
+                {
+                    headers: {
+                        'Content-Type': 'multipart/from-data'
+                    },
+                    withCredentials: true
+                }
+            );
+            console.log(data);
+            return data;
+        } catch (error) {
+            console.error('error', error);
+            if (axios.isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+            return rejectWithValue('An unexpected error occurred');
+        }
+    }
+)

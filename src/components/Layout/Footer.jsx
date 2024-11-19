@@ -1,6 +1,7 @@
 import React from "react";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FaFacebook } from "react-icons/fa";
 
 function Footer() {
   return(
@@ -94,8 +95,8 @@ function Footer() {
               className="text-gray-400 hover:text-white transition duration-200"
               aria-label="Instagram"
             >
-              <i className="fab fa-instagram text-xl"></i>
-              <FontAwesomeIcon icon="fa-brands fa-youtube" />
+              <FaFacebook/>
+              {/* <FontAwesomeIcon icon="fa-brands fa-youtube" /> */}
             </a>
           </div>
           <p className="text-white text-sm text-center ">

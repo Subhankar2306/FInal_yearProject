@@ -12,7 +12,7 @@ function AddCar({ onDetails= '' , onClose='' }) {
 
   const [name, setName] = useState('');
   const [brand, setBrand] = useState('');
-  const [imageURL, setImageURL] = useState('');
+  
   const [imageFile, setImageFile] = useState(null);
   const [rate, setRate] = useState(0);
   const [area, setArea] = useState([]);
@@ -23,12 +23,15 @@ function AddCar({ onDetails= '' , onClose='' }) {
   // Handle file selection and generate a preview URL
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      setImageFile(file);
-      setImageURL(URL.createObjectURL(file)); 
-    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImageFile(reader.result);
+      
+    };
+    reader.readAsDataURL(file);
   };
 
+ 
   const handleAddArea = () => {
     if (areaName) {
       setArea([...area, areaName]);
@@ -37,6 +40,9 @@ function AddCar({ onDetails= '' , onClose='' }) {
       toast.info('Area name is required');
     }
   };
+
+  console.log(imageFile);
+  
 
   const handleDeleteArea = (index) => {
     const updatedArea = area.filter((_, i) => i !== index);
@@ -47,7 +53,7 @@ function AddCar({ onDetails= '' , onClose='' }) {
     e.preventDefault();
 
     const fromData = new FormData()
-    fromData.append("image", imageURL);
+    fromData.append("image", imageFile);
     fromData.set("name", name);
     fromData.set("modelNumber", modelNumber);
     fromData.set("rate", rate);
@@ -123,8 +129,8 @@ function AddCar({ onDetails= '' , onClose='' }) {
         />
         
         {/* Display image preview */}
-        {imageURL && (
-          <img src={imageURL} alt="Image Preview" className="image-preview my-2 h-16 w-16" />
+        {imageFile && (
+          <img src={imageFile} alt="Image Preview" className="image-preview my-2 h-16 w-16" />
         )}
 
         <input
