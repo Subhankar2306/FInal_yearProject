@@ -1,15 +1,17 @@
 // carSlice.js
 import { createSlice } from "@reduxjs/toolkit";
-import {  createNewCar } from "./carController";
+import {  createNewCar, deleteVehicle } from "./carController";
 
 const initialState = {
     car: [],
     selectedCar :{},
     status: {
-        createNewCar: ''
+        createNewCar: '',
+        deleteVehicle: ''
     },
     loading: {
-        createNewCarLoading: false
+        createNewCarLoading: false,
+        deleteVehicleLoading : false ,
     },
     message: '',
     error: null,
@@ -23,6 +25,7 @@ const carSlice = createSlice({
             state.message = '';
             state.error = null;
             state.status.createNewCar = '';
+            state.status.deleteVehicle = '';
         }
     },
     extraReducers: (builder) => {
@@ -44,6 +47,27 @@ const carSlice = createSlice({
             state.error = message;
             state.loading.createNewCarLoading = false;
             state.status.createNewCar = 'rejected';
+        });
+
+        builder.addCase(deleteVehicle.pending , (state , action)=>{
+            state.loading.deleteVehicleLoading = true;
+            state.status.deleteVehicle = 'pending';
+        })
+
+        builder.addCase(deleteVehicle.fulfilled, (state, action) => {
+            const { message, data } = action.payload;
+            state.car = state.car.filter((ele)=> ele._id !== data._id )
+            state.selectedCar = data
+            state.message = message;
+            state.loading.deleteVehicleLoading = false;
+            state.status.deleteVehicle = 'success';
+        });
+        builder.addCase(deleteVehicle.rejected, (state, action) => {
+            const { message } = action.payload;
+            state.message = message;
+            state.error = message;
+            state.loading.deleteVehicleLoading = false;
+            state.status.deleteVehicle = 'rejected';
         });
     }
 });

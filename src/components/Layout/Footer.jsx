@@ -1,5 +1,7 @@
 import React from "react";
 
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FaFacebook } from "react-icons/fa";
 function Footer() {
   return (
 
@@ -97,6 +99,8 @@ function Footer() {
               aria-label="Instagram"
             >
               <i className="fab fa-instagram text-xl"></i>
+              <FaFacebook/>
+              {/* <FontAwesomeIcon icon="fa-brands fa-youtube" /> */}
             </a>
           </div>
           <p className="text-white text-sm text-center ">
