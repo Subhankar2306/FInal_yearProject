@@ -59,10 +59,6 @@ function About() {
         </div>
       </section>
 
-      {/* Footer Section */}
-      <footer className="text-center mt-10 bg-gray-800 text-white py-4">
-        <p>&copy; 2024 Our Transportation System. All Rights Reserved.</p>
-      </footer>
     </div>
   );
 }
