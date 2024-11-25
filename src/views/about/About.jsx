@@ -12,7 +12,7 @@ function About() {
     <div className="container mx-auto px-4 py-6">
       {/* Header Section */}
       <header className="text-center mb-8">
-        <h1 className="text-4xl font-bold text-gray-900">About Our Transportation Systems</h1>
+        <h1 className="text-4xl font-bold text-gray-900">About Our Transportation System</h1>
         <p className="mt-2 text-xl text-gray-600">We offer a variety of transportation options for all your travel needs.</p>
       </header>
 
@@ -59,6 +59,10 @@ function About() {
         </div>
       </section>
 
+      {/* Footer Section */}
+      <footer className="text-center mt-10 bg-gray-800 text-white py-4">
+        <p>&copy; 2024 Our Transportation System. All Rights Reserved.</p>
+      </footer>
     </div>
   );
 }
