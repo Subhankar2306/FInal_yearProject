@@ -56,9 +56,9 @@ function CustomerReg() {
   };
 
   return (
-    <div className="customer-reg-container">
-      <h2 className="form-title text-xl">Customer Details</h2>
-      <form onSubmit={handleSubmit} className="customer-reg-form">
+    <div className=" border-none">
+      <h2 className="form-title text-3xl text-center text-gray-600">Rider Details</h2>
+      <form onSubmit={handleSubmit} className="customer-reg-form shadow-sm p-5">
         <input
           type="text"
           value={name}
