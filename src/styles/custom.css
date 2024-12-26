@@ -6,3 +6,7 @@
 .popup-container{
     @apply fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50;
 }
+
+.nav_links{
+    @apply flex items-center gap-2 text-gray-700 hover:text-[#ff6b6b] transition-colors hover:bg-gray-50 p-1
+  }
