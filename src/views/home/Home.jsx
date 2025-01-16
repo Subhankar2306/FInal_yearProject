@@ -5,6 +5,7 @@ import FilterSection from './components/FilterSection';
 import FeedbackSection from './components/FeedbackSection';
 import BlogSection from './components/BlogSection';
 import CarSection from './components/CarSection';
+import ServiceType from './components/ServiceType';
 
 function Home() {
   
@@ -16,11 +17,13 @@ function Home() {
      {/* search box  */}
       <SearchBox/>
 
-      {/* filtering section  */}
+      {/* service type */}
+      <ServiceType/>
+
+      {/* {/* filtering section 
       <FilterSection/>
 
-      {/* car section */}
-      <CarSection/>
+      <CarSection/>  */}
 
       {/* Blog Section */}
       <BlogSection/>
