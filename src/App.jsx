@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { authenticateUser } from './store/user/userController'
 import './global.css'
 import Profile from './views/auth/Profile'
+import VehicleBookingPage from './views/services/Ride/VehicleBookingPage'
 
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
         <Route path='/' element={<Layout/>}>  
            <Route index element={<Home/>}/>
            <Route path='/about' element={<About/>} />
+           <Route path='/ride-book' element={<VehicleBookingPage/>} />
            
 
            <Route path='/contact' element={<Contact/>} />

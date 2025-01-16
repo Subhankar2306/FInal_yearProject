@@ -55,3 +55,5 @@ export const deleteVehicle = createAsyncThunk('car/deleteVehicle' ,
         }
     }
 )
+
+ 
