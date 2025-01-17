@@ -1,18 +1,13 @@
-/* General Styles */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
   
   /* Hero Section */
   .hero-section {
     text-align: center;
     padding: 4rem 1rem;
-    background-image: url('https://example.com/hero-bg.jpg');
+    background-image: url('./../assets/home-bg.jpeg');
+    background-position: center;
     background-size: cover;
-    /* color: #fff; */
+    color: #fff;
+
   }
   .hero-title {
     font-size: 2.5rem;
@@ -125,3 +120,29 @@ body {
     text-align: center;
   }
   
+  .search-group{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    border: solid 1px rgba(211, 209, 209, 0.66);
+    padding-inline: 8px;
+    padding-block: 2px;
+    
+  }
+ 
+  .search-input{
+    @apply  w-full p-3 border border-transparent rounded-none text-base outline-none transition-all duration-300 focus:border-transparent  
+  }
+
+
+  .search-group:hover {
+    border:solid 1px #e84e1a;
+  }
+
+  @media (max-width: 555px){
+    .search-group{
+       @apply rounded-full overflow-hidden
+    }
+  }

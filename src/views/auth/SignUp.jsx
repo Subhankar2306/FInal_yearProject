@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import signUpImage from "../../assets/sign-in.webp";
+// import signUpImage from '../../assets/reg_car.png'
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { regUser } from "../../store/user/userController";
 import { toast } from "react-toastify";
 import EmailVerify from "./components/EmailVerify";
 import { resetState } from "../../store/user/userSlice";
+import UserType from "./components/UserType";
 
 function SignUp() {
   const [name, setName] = useState("");
-  const [role, setRole] = useState("customer");
+  const [role, setRole] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -57,8 +59,11 @@ function SignUp() {
         </div>
         {/* Right side form section */}
         <div className="signin-form-container">
+          
 
         {
+          !role? <UserType onType={(type)=>setRole(type)}/>:
+
           !isVerify ?(
 
             <form className="signin-form flex flex-col gap-3" onSubmit={handleSubmit}>
@@ -85,36 +90,7 @@ function SignUp() {
                 className="custom-input"
               />
            
-            <div className="input-group">
-              <label htmlFor="role" className="radio-label">
-                {" "}
-                If you work with us as :{" "}
-              </label>
-              <div className="radio-group">
-                <label className="radio-option">
-                  <input
-                    type="radio"
-                    name="role"
-                    value="owner"
-                    checked={role === "owner"}
-                    onChange={(e) => setRole(e.target.value)}
-                  />
-                  Car Owner
-                </label>
-                <label className="radio-option">
-                  <input
-                    type="radio"
-                    name="role"
-                    value="driver"
-                    checked={role === "driver"}
-                    onChange={(e) => setRole(e.target.value)}
-                  />
-                  Car Driver
-                </label>
-              </div>
-            </div>
-
-      
+           
               <input
                 type="password"
                 id="password"
@@ -152,6 +128,7 @@ function SignUp() {
         }
 
         </div>
+        {/* <UserType/> */}
       </div>
     </div>
   );
