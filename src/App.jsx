@@ -3,6 +3,8 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import Home from './views/home/Home'
 import About from './views/about/About'
+import Blogs from './views/Blogs'
+
 import Contact from './views/contact/contact'
 import { Route, BrowserRouter as Router, Routes} from 'react-router-dom'
 import Layout from './components/Layout/Layout'
@@ -48,7 +50,9 @@ function App() {
         <Route path='/' element={<Layout/>}>  
            <Route index element={<Home/>}/>
            <Route path='/about' element={<About/>} />
-           
+           <Route path='/blogs' element={<Blogs/>} />
+        
+        
 
            <Route path='/contact' element={<Contact/>} />
            <Route path='/profile' element={<Profile/>} />
@@ -56,7 +60,7 @@ function App() {
 
       <Route path='/sign-up' element={<SignUp/>} />
       <Route path='/sign-in' element={<SignIn/>} />
-      <Route path='/*' element={<div className='h-screen w-screen flex justify-center items-center text-2xl text-red-400'>404 error</div>}/>
+
        </Routes>
 
      </Router>
