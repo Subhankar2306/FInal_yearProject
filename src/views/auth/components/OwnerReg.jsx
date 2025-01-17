@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import AddCar from './AddCarSection';
 import { resetOwnerState } from '../../../store/owner/ownerSlice';
+import VehicleDetails from './VehicleDetails';
 // import { createOwnerProfile } from '../../../store/owner/ownerController';
 
 function OwnerReg() {
@@ -30,6 +31,9 @@ function OwnerReg() {
   // Remove a vehicle
   const handleRemoveVehicle = (id) => {
     console.log(id);
+
+    const tempArr = vehicleDetails.filter((ele)=> ele.id !== id )
+    setVehicleDetails(tempArr)
     
   };
 
@@ -113,22 +117,13 @@ function OwnerReg() {
 
         {/* Vehicle Information */}
         <label className="block font-medium my-2">Vehicle Information</label>
+        <div className='flex flex-wrap gap-3 '>
+
         {vehicleDetails.length > 0 &&
           vehicleDetails.map((vehicle, index) => (
-            <div
-              key={vehicle.id}
-              className="flex items-center my-2 border rounded-full bg-gray-200 p-2 px-3 text-black"
-            >
-              <p className="mr-2">{`${vehicle.name} - ${vehicle.modelNumber}`}</p>
-              <button
-                type="button"
-                onClick={() => handleRemoveVehicle(vehicle.id)}
-                className="text-red-500 hover:underline"
-              >
-                <IoClose />
-              </button>
-            </div>
+            <VehicleDetails vehicle={vehicle} key={vehicle.id} onRemove={handleRemoveVehicle} />
           ))}
+        </div>
 
         {/* Add Vehicle Button */}
         <button
@@ -139,8 +134,21 @@ function OwnerReg() {
           Add Another Vehicle
         </button>
 
-        {/* Popup for Vehicle Details */}
-        {
+       
+
+        {/* Submit Button */}
+        <button
+          type="submit"
+          disabled={loading?.createOwnerProfileLoading}
+          className="submit-btn py-2 px-4 rounded-md"
+        >
+          {loading?.createOwnerProfileLoading ? 'Registering...' : 'Register as Owner'}
+        </button>
+      </form>
+
+
+      {/* Popup for Vehicle Details */}
+      {
           isOpen && (
             <div className="popup-container ">
             <div className=" flex flex-col gap-4 bg-white rounded-md shadow-sm p-6 pt-4 max-w-[500px] overflow-auto h-[90vh] ">
@@ -158,15 +166,6 @@ function OwnerReg() {
 
         }
 
-        {/* Submit Button */}
-        <button
-          type="submit"
-          disabled={loading?.createOwnerProfileLoading}
-          className="submit-btn py-2 px-4 rounded-md"
-        >
-          {loading?.createOwnerProfileLoading ? 'Registering...' : 'Register as Owner'}
-        </button>
-      </form>
     </div>
   );
 }
