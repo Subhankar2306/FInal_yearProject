@@ -1,4 +1,3 @@
-
 import Home from "./views/home/Home";
 import About from "./views/about/About";
 import Contact from "./views/contact/contact";
@@ -16,7 +15,7 @@ import Profile from "./views/auth/Profile";
 import VehicleBookingPage from "./views/services/Ride/VehicleBookingPage";
 
 import Cars from "./views/cars";
-
+import { useEffect } from "react";
 
 function App() {
   const dispatch = useDispatch();
@@ -43,7 +42,6 @@ function App() {
         theme="colored"
       />
 
-
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
@@ -67,10 +65,6 @@ function App() {
           }
         />
       </Routes>
-
-
-      
-     
     </Router>
   );
 }
