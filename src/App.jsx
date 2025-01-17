@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+
 import Home from "./views/home/Home";
 import About from "./views/about/About";
 import Contact from "./views/contact/contact";
@@ -19,12 +17,14 @@ import VehicleBookingPage from "./views/services/Ride/VehicleBookingPage";
 
 import Cars from "./views/cars";
 
+
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+
   useEffect(() => {
     dispatch(authenticateUser());
-  }, []);
+  }, [dispatch]);
 
   console.log("user data", user);
 
@@ -42,6 +42,7 @@ function App() {
         pauseOnHover
         theme="colored"
       />
+
 
       <Routes>
         <Route path="/" element={<Layout />}>
@@ -67,26 +68,9 @@ function App() {
         />
       </Routes>
 
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="/about" element={<About />} />
 
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/profile" element={<Profile />} />
-        </Route>
-
-        <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/sign-in" element={<SignIn />} />
-        <Route
-          path="/*"
-          element={
-            <div className="h-screen w-screen flex justify-center items-center text-2xl text-red-400">
-              404 error
-            </div>
-          }
-        />
-      </Routes>
+      
+     
     </Router>
   );
 }
