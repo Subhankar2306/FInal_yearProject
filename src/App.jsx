@@ -18,6 +18,8 @@ import VehicleBookingPage from './views/services/Ride/VehicleBookingPage'
 import RentalPage from './views/services/Rental/RentalPage'
 import VehicalPage from './views/services/Rental/VehicalPage'
 import LongTripPage from './views/services/LongTrip/LongTrip'
+import TouristSpotDetails from './views/services/LongTrip/components/TouristSpotDetails'
+import touristSpots from './assets/data/touristSpotsData'
 
 
 
@@ -56,7 +58,10 @@ function App() {
            <Route path='/car-rent' element={<RentalPage/>} />
            <Route path='/car-rent/:id' element={<VehicalPage/>} />
            <Route path='/long-trip'element= {<LongTripPage/>} />
-           
+           <Route
+          path="/long-trip/:id"
+          element={<TouristSpotDetails spots={touristSpots} />}
+        />
 
            <Route path='/contact' element={<Contact/>} />
            <Route path='/profile' element={<Profile/>} />

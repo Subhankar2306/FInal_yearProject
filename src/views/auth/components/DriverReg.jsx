@@ -135,13 +135,16 @@ function DriverReg() {
           </button>
         </div>
 
+       <div className=' w-full flex p-3 items-center gap-3'>
+
         <input
           type="checkbox"
           checked={isOwnCar}
           onChange={(e) => setIsOwnCar(e.target.checked)}
-          className="form-checkbox mr-3 my-2"
+          className="w-6"
         />
         Do you own a car?
+       </div>
 
         <input
           type="number"
