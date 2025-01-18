@@ -15,6 +15,8 @@ import { authenticateUser } from './store/user/userController'
 import './global.css'
 import Profile from './views/auth/Profile'
 import VehicleBookingPage from './views/services/Ride/VehicleBookingPage'
+import RentalPage from './views/services/Rental/RentalPage'
+import VehicalPage from './views/services/Rental/VehicalPage'
 
 
 function App() {
@@ -50,6 +52,8 @@ function App() {
            <Route index element={<Home/>}/>
            <Route path='/about' element={<About/>} />
            <Route path='/ride-book' element={<VehicleBookingPage/>} />
+           <Route path='/car-rent' element={<RentalPage/>} />
+           <Route path='/car-rent/:id' element={<VehicalPage/>} />
            
 
            <Route path='/contact' element={<Contact/>} />
