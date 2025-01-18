@@ -20,20 +20,18 @@ import VehicalPage from './views/services/Rental/VehicalPage'
 
 
 function App() {
-  const dispatch = useDispatch()
-  const user =  useSelector((state)=> state.user)
-  useEffect(()=>{
-       dispatch(authenticateUser())
-  },[])
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
 
-  console.log('user data' , user);
-  
+  useEffect(() => {
+    dispatch(authenticateUser());
+  }, [dispatch]);
+
+  console.log("user data", user);
 
   return (
-  
     <Router>
-     
-        <ToastContainer
+      <ToastContainer
         position="bottom-center"
         autoClose={5000}
         hideProgressBar={false}
@@ -60,16 +58,22 @@ function App() {
            <Route path='/profile' element={<Profile/>} />
         </Route>
 
-      <Route path='/sign-up' element={<SignUp/>} />
-      <Route path='/sign-in' element={<SignIn/>} />
-      <Route path='/*' element={<div className='h-screen w-screen flex justify-center items-center text-2xl text-red-400'>404 error</div>}/>
-       </Routes>
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/sign-in" element={<SignIn />} />
 
-     </Router>
-   
-  )
+        <Route
+          path="/*"
+          element={
+            <div className="h-screen w-screen flex justify-center items-center text-2xl text-red-400">
+              404 error
+            </div>
+          }
+        />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
 
-export const baseUrl = `http://localhost:8000/api/v1`
+export const baseUrl = `http://localhost:8000/api/v1`;
