@@ -14,14 +14,21 @@ import { useDispatch, useSelector } from 'react-redux'
 import { authenticateUser } from './store/user/userController'
 import './global.css'
 import Profile from './views/auth/Profile'
+import VehicleBookingPage from './views/services/Ride/VehicleBookingPage'
+import RentalPage from './views/services/Rental/RentalPage'
+import VehicalPage from './views/services/Rental/VehicalPage'
+import LongTripPage from './views/services/LongTrip/LongTrip'
+
+
 
 
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+
   useEffect(() => {
     dispatch(authenticateUser());
-  }, []);
+  }, [dispatch]);
 
   console.log("user data", user);
 
@@ -45,28 +52,20 @@ function App() {
         <Route path='/' element={<Layout/>}>  
            <Route index element={<Home/>}/>
            <Route path='/about' element={<About/>} />
+           <Route path='/ride-book' element={<VehicleBookingPage/>} />
+           <Route path='/car-rent' element={<RentalPage/>} />
+           <Route path='/car-rent/:id' element={<VehicalPage/>} />
+           <Route path='/long-trip'element= {<LongTripPage/>} />
            
 
            <Route path='/contact' element={<Contact/>} />
            <Route path='/profile' element={<Profile/>} />
         </Route>
 
-      <Route path='/sign-up' element={<SignUp/>} />
-      <Route path='/sign-in' element={<SignIn/>} />
-      <Route path='/*' element={<div className='h-screen w-screen flex justify-center items-center text-2xl text-red-400'>404 error</div>}/>
-       </Routes>
-
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="/about" element={<About />} />
-
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/profile" element={<Profile />} />
-        </Route>
-
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/sign-in" element={<SignIn />} />
+        
+
         <Route
           path="/*"
           element={
