@@ -20,7 +20,7 @@ function ServiceType() {
       type: "Rental",
       description: "Reliable transport for goods and passengers.",
       icon: <FaTruck className="text-4xl text-red-500" />,
-      link:"/rental"
+      link:"/car-rent"
     },
     {
       type: "Centralized System",
