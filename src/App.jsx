@@ -17,6 +17,9 @@ import Profile from './views/auth/Profile'
 import VehicleBookingPage from './views/services/Ride/VehicleBookingPage'
 import RentalPage from './views/services/Rental/RentalPage'
 import VehicalPage from './views/services/Rental/VehicalPage'
+import LongTripPage from './views/services/LongTrip/LongTrip'
+
+
 
 
 function App() {
@@ -52,6 +55,7 @@ function App() {
            <Route path='/ride-book' element={<VehicleBookingPage/>} />
            <Route path='/car-rent' element={<RentalPage/>} />
            <Route path='/car-rent/:id' element={<VehicalPage/>} />
+           <Route path='/long-trip'element= {<LongTripPage/>} />
            
 
            <Route path='/contact' element={<Contact/>} />
@@ -60,6 +64,7 @@ function App() {
 
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/sign-in" element={<SignIn />} />
+        
 
         <Route
           path="/*"
