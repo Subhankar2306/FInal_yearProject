@@ -153,7 +153,7 @@ function Profile() {
         <CustomerReg />
       ) : (user?.role === "driver" ? (
         <DriverReg />
-      ) : (  user?.role === "owner" && <OwnerReg />
+      ) : (  user?.role === "owner" && <OwnerReg id={user._id} />
       )) )
     
     }

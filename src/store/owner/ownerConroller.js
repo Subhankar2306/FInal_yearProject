@@ -5,13 +5,13 @@ import { baseUrl } from "../../App";
 
 export const createOwnerProfile = createAsyncThunk(
     'owner/createOwnerProfile',
-    async ({ businessName, address, phone, email, ownerName, registrationNumber }, { rejectWithValue }) => {
-        let body = {};
+    async (body , { rejectWithValue }) => {
+        // let body = {};
         try {
-            body = { businessName, address, phone, email, ownerName, registrationNumber };
+            // body = { businessName, address, phone, email, ownerName, registrationNumber };
 
             const { data } = await axios.post(
-                `${baseUrl}/owner`,
+                `${baseUrl}/owner/create`,
                 body,
                 {
                     headers: {
@@ -50,6 +50,7 @@ export const fetchAllAvailableVehical = createAsyncThunk(
                     withCredentials: true
                 }
             );
+            
             console.log(data);
             return data;
         } catch (error) {

@@ -5,36 +5,39 @@ import { useDispatch, useSelector } from 'react-redux';
 import AddCar from './AddCarSection';
 import { resetOwnerState } from '../../../store/owner/ownerSlice';
 import VehicleDetails from './VehicleDetails';
-// import { createOwnerProfile } from '../../../store/owner/ownerController';
+import { createOwnerProfile } from '../../../store/owner/ownerConroller';
 
-function OwnerReg() {
+function OwnerReg({ id }) {
   const dispatch = useDispatch();
   const { error, message, loading, status } = useSelector((state) => state.owner);
+  console.log("-------",id);
+  
 
   // Form States
-  const [userId, setUserId] = useState('');
+ 
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
   const [vehicleDetails, setVehicleDetails] = useState([]); // Array of vehicle objects
   const [isOpen, setIsOpen] = useState(false);
 
+
+
   // Add a vehicle
   const handleVehicleChange = (vehicle) => {
     console.log(vehicle);
     
     const { name, modelNumber, _id } = vehicle;
-    const newVehicle = { name, modelNumber, id: _id };
-    setVehicleDetails((prev) => [...prev, newVehicle]);
+    // const newVehicle = { vehicle }; // Only store the vehicle ID in the array
+    setVehicleDetails((prev) => [...prev, vehicle]);
   };
 
   // Remove a vehicle
   const handleRemoveVehicle = (id) => {
     console.log(id);
 
-    const tempArr = vehicleDetails.filter((ele)=> ele.id !== id )
-    setVehicleDetails(tempArr)
-    
+    const tempArr = vehicleDetails.filter((ele) => ele.vehicle !== id);
+    setVehicleDetails(tempArr);
   };
 
   // Submit Form
@@ -42,20 +45,21 @@ function OwnerReg() {
     e.preventDefault();
 
     const formData = {
-      user: userId,
+      user: id ,
       contactInfo: {
         email,
         phone,
         address,
       },
       vehicles: vehicleDetails.map((vehicle) => ({
-        vehicle: vehicle.id,
-        name: vehicle.name,
-        modelNumber: vehicle.modelNumber,
+        vehicle: vehicle._id, // Only reference the vehicle ID
       })),
     };
 
-    // dispatch(createOwnerProfile(formData)); Uncomment when ready
+    // console.log(formData);
+    
+
+    dispatch(createOwnerProfile(formData)); // Uncomment when ready
     console.log('Form Data Submitted:', formData);
   };
 
@@ -76,16 +80,7 @@ function OwnerReg() {
     <div className="owner-reg-container">
       <h2 className="form-title text-xl">Register as Owner</h2>
       <form onSubmit={handleSubmit} className="owner-reg-form">
-        {/* User ID */}
-        <input
-          type="text"
-          value={userId}
-          onChange={(e) => setUserId(e.target.value)}
-          required
-          className="custom-input my-2"
-          placeholder="User ID"
-        />
-
+       
         {/* Email */}
         <input
           type="email"
@@ -117,12 +112,11 @@ function OwnerReg() {
 
         {/* Vehicle Information */}
         <label className="block font-medium my-2">Vehicle Information</label>
-        <div className='flex flex-wrap gap-3 '>
-
-        {vehicleDetails.length > 0 &&
-          vehicleDetails.map((vehicle, index) => (
-            <VehicleDetails vehicle={vehicle} key={vehicle.id} onRemove={handleRemoveVehicle} />
-          ))}
+        <div className="flex flex-wrap gap-3">
+          {vehicleDetails.length > 0 &&
+            vehicleDetails.map((vehicle, index) => (
+              <VehicleDetails vehicle={vehicle} key={vehicle.vehicle} onRemove={handleRemoveVehicle} />
+            ))}
         </div>
 
         {/* Add Vehicle Button */}
@@ -134,8 +128,6 @@ function OwnerReg() {
           Add Another Vehicle
         </button>
 
-       
-
         {/* Submit Button */}
         <button
           type="submit"
@@ -146,26 +138,17 @@ function OwnerReg() {
         </button>
       </form>
 
-
       {/* Popup for Vehicle Details */}
-      {
-          isOpen && (
-            <div className="popup-container ">
-            <div className=" flex flex-col gap-4 bg-white rounded-md shadow-sm p-6 pt-4 max-w-[500px] overflow-auto h-[90vh] ">
-              <div
-                onClick={() => setIsOpen(false)}
-                className="self-end cursor-pointer"
-              >
-                {" "}
-                ❌{" "}
-              </div>
-              <AddCar onDetails={handleVehicleChange} onClose={()=>setIsOpen(false)}/>
+      {isOpen && (
+        <div className="popup-container">
+          <div className="flex flex-col gap-4 bg-white rounded-md shadow-sm p-6 pt-4 max-w-[500px] overflow-auto h-[90vh]">
+            <div onClick={() => setIsOpen(false)} className="self-end cursor-pointer">
+              ❌
             </div>
+            <AddCar onDetails={handleVehicleChange} onClose={() => setIsOpen(false)} />
           </div>
-          )
-
-        }
-
+        </div>
+      )}
     </div>
   );
 }

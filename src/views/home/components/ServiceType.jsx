@@ -1,6 +1,8 @@
 import React from "react";
 import { FaTruck, FaRoute, FaCar, FaClipboardList } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { FcManager } from "react-icons/fc";
+import { CgProfile } from "react-icons/cg";
 
 function ServiceType() {
   const services = [
@@ -23,9 +25,9 @@ function ServiceType() {
       link:"/car-rent"
     },
     {
-      type: "Centralized System",
-      description: "Seamlessly manage trips and transport with our unified system.",
-      icon: <FaClipboardList className="text-4xl text-purple-500" />,
+      type: "Driver Booking",
+      description: "Book reliable, experienced drivers for personal trips or goods transport with seamless and efficient service.",
+      icon: <CgProfile className="text-4xl text-purple-500" />,
       link:"/custom"
     },
   ];
