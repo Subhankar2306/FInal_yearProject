@@ -8,7 +8,7 @@ import agra from "../images/longtrip/agra.jpg";
 import jaipur from "../images/longtrip/jaipur.jpg";
 import gujarat from "../images/longtrip/gujarat.jpg";
 import munnar from "../images/longtrip/munnar.jpg";
-import andaman from "../images/longtrip/andaman.jpg";
+import andaman from "../images/longtrip/andaman.jpg"
 export const touristSpots = [
   {
     id: 1,
@@ -197,14 +197,14 @@ export const touristSpots = [
     description:
       "Enjoy pristine beaches, water sports, and marine life in the Andaman Islands.",
     image: andaman,
-    price: "₹12,000",
+    price: "₹40,000",
     packages: [
-      { name: "Base Pack", details: "3 days, 2 nights", price: "₹12,000" },
+      { name: "Base Pack", details: "3 days, 2 nights", price: "₹40,000" },
       {
         name: "Premium Pack",
         details:
           "5 days, 4 nights with scuba diving, island hopping, and candlelight beach dinners.",
-        price: "₹40,000",
+        price: "₹64,000",
       },
     ],
   },
