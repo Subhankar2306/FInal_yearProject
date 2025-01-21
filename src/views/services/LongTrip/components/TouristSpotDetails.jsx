@@ -57,7 +57,7 @@ const TouristSpotDetails = ({ spots }) => {
                   <h4 className="text-xl font-bold text-gray-800">{pkg.name}</h4>
                   <p className="text-gray-600 mt-2">{pkg.details}</p>
                   <div className="flex items-center mt-4">
-                    <FaRupeeSign className="text-orange-600 mr-1" />
+                    {/* <FaRupeeSign className="text-orange-600 mr-1" /> */}
                     <span className="text-orange-600 font-bold">{pkg.price}</span>
                   </div>
                   <button className="bg-indigo-500 text-white px-4 py-2 rounded-md mt-4 hover:bg-indigo-600">
