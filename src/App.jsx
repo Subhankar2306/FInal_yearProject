@@ -3,6 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import Home from './views/home/Home'
 import About from './views/about/About'
+import Blogs from './views/blogs/Blogs'
 import Contact from './views/contact/contact'
 import { Route, BrowserRouter as Router, Routes} from 'react-router-dom'
 import Layout from './components/Layout/Layout'
@@ -20,7 +21,10 @@ import VehicalPage from './views/services/Rental/VehicalPage'
 import LongTripPage from './views/services/LongTrip/LongTrip'
 import TouristSpotDetails from './views/services/LongTrip/components/TouristSpotDetails'
 import touristSpots from './assets/data/touristSpotsData'
-import Dashboard from './views/dashboard/Dashboard'
+
+
+
+
 
 
 
@@ -55,13 +59,17 @@ function App() {
         <Route path='/' element={<Layout/>}>  
            <Route index element={<Home/>}/>
            <Route path='/about' element={<About/>} />
+           <Route path='/blogs' element={<Blogs/>} />
+
            <Route path='/ride-book' element={<VehicleBookingPage/>} />
            <Route path='/car-rent' element={<RentalPage/>} />
            <Route path='/car-rent/:id' element={<VehicalPage/>} />
            <Route path='/long-trip'element= {<LongTripPage/>} />
            <Route path="/long-trip/:id"  element={<TouristSpotDetails spots={touristSpots} />}/>
+           
 
-           <Route path='/dashboard' element={<Dashboard/>} />
+
+           
 
            <Route path='/contact' element={<Contact/>} />
            <Route path='/profile' element={<Profile/>} />
