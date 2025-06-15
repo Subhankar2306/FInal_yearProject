@@ -21,7 +21,7 @@ import VehicalPage from './views/services/Rental/VehicalPage'
 import LongTripPage from './views/services/LongTrip/LongTrip'
 import TouristSpotDetails from './views/services/LongTrip/components/TouristSpotDetails'
 import touristSpots from './assets/data/touristSpotsData'
-
+import Driverbooking from './views/services/DriverBooking/Driverbooking'
 
 
 
@@ -37,7 +37,7 @@ function App() {
     dispatch(authenticateUser());
   }, [dispatch]);
 
-  console.log("user data", user);
+  console.log('user data', user);
 
   return (
     <Router>
@@ -60,6 +60,8 @@ function App() {
            <Route index element={<Home/>}/>
            <Route path='/about' element={<About/>} />
            <Route path='/blogs' element={<Blogs/>} />
+           
+           <Route path="/driver-booking" element={<Driverbooking />} />
 
            <Route path='/ride-book' element={<VehicleBookingPage/>} />
            <Route path='/car-rent' element={<RentalPage/>} />
@@ -77,8 +79,8 @@ function App() {
 
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/sign-in" element={<SignIn />} />
-        
 
+        
         <Route
           path="/*"
           element={
@@ -94,4 +96,5 @@ function App() {
 
 export default App;
 
+// Base API URL
 export const baseUrl = `http://localhost:8000/api/v1`;
