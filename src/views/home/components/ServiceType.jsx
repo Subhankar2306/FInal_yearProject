@@ -28,7 +28,7 @@ function ServiceType() {
       type: "Driver Booking",
       description: "Book reliable, experienced drivers for personal trips or goods transport with seamless and efficient service.",
       icon: <CgProfile className="text-4xl text-purple-500" />,
-      link:"/custom"
+      link:"/driver-booking"
     },
   ];
 
