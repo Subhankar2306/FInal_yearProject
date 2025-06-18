@@ -6,6 +6,7 @@ const TouristSpotDetails = ({ spots }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const spot = spots.find((s) => s.id === parseInt(id));
+  
 
   if (!spot) {
     return <p>Tourist spot not found.</p>;
@@ -60,7 +61,8 @@ const TouristSpotDetails = ({ spots }) => {
                     {/* <FaRupeeSign className="text-orange-600 mr-1" /> */}
                     <span className="text-orange-600 font-bold">{pkg.price}</span>
                   </div>
-                  <button className="bg-indigo-500 text-white px-4 py-2 rounded-md mt-4 hover:bg-indigo-600">
+                  <button className="bg-indigo-500 text-white px-4 py-2 rounded-md mt-4 hover:bg-indigo-600"
+                  onClick={()=> navigate(`/order/${id}`)} >
                     Book Now
                   </button>
                 </div>
