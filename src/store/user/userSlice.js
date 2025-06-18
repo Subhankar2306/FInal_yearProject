@@ -4,6 +4,7 @@ import { authenticateUser, loginUser, logoutUser, regUser, sendOtpForProfileVali
 
 const initialState = {
     user:{},
+    token :null ,
     isAuthenticate:false,
     status:{
         regUser:'',
@@ -65,12 +66,13 @@ export const userSlice = createSlice({
         })
         // fulfilled or success
         builder.addCase(regUser.fulfilled , (state , action)=>{
-            const { data , message} = action.payload
+            const { data , message , token} = action.payload
             state.error = null
             state.message = message || 'user register success'
             state.status.regUser = 'success'
             state.loading.regUserLoading = false
             state.isAuthenticate = true
+            state.token = token || null
             state.user = data
             
         })
@@ -96,8 +98,9 @@ export const userSlice = createSlice({
         })
         // fulfilled or success
         builder.addCase(authenticateUser.fulfilled , (state , action)=>{
-            const { data , message} = action.payload
+            const { data , message , token} = action.payload
             state.isAuthenticate = true
+            state.token = token || null
             state.user = data
             state.message = message || 'user register success'
             state.status.authenticateUser = 'sucess'
